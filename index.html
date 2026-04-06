@@ -458,8 +458,8 @@
   <div class="metric-row">
     <div class="metric-pill"><div class="num">6</div><div class="label">Developers</div></div>
     <div class="metric-pill"><div class="num">6</div><div class="label">Epics</div></div>
-    <div class="metric-pill"><div class="num">34</div><div class="label">Dev Stories</div></div>
-    <div class="metric-pill"><div class="num">10</div><div class="label">PM Tasks</div></div>
+    <div class="metric-pill"><div class="num">34</div><div class="label">User Stories</div></div>
+    <div class="metric-pill"><div class="num">3</div><div class="label">Weeks</div></div>
     <div class="metric-pill"><div class="num">8</div><div class="label">Brownie Features</div></div>
   </div>
 </div>
@@ -492,10 +492,10 @@
     <tr><td><code>wellness_engine.py</code></td><td>Wellness score computation, trend analysis, correlations</td><td>Dev 2</td></tr>
     <tr><td><code>seed_nutrition.py</code></td><td>Seed 90 days of realistic meal data for all 30 athletes</td><td>Dev 6</td></tr>
     <tr><td><code>seed_wellness.py</code></td><td>Seed enhanced wellness history for all 30 athletes</td><td>Dev 6</td></tr>
-    <tr><td><code>src/screens/NutritionScreen.js</code></td><td>Meal logging &amp; daily nutrition view</td><td>Dev 3</td></tr>
-    <tr><td><code>src/screens/MealLogScreen.js</code></td><td>Add/edit meal entry with food search</td><td>Dev 3</td></tr>
-    <tr><td><code>src/screens/WellnessScreen.js</code></td><td>Full wellness dashboard with score, trends, insights</td><td>Dev 4</td></tr>
-    <tr><td><code>src/screens/SleepLogScreen.js</code></td><td>Detailed sleep entry screen</td><td>Dev 4</td></tr>
+    <tr><td><code>src/screens/wellness/NutritionScreen.js</code></td><td>Meal logging &amp; daily nutrition view</td><td>Dev 3</td></tr>
+    <tr><td><code>src/screens/wellness/MealLogScreen.js</code></td><td>Add/edit meal entry with food search</td><td>Dev 3</td></tr>
+    <tr><td><code>src/screens/wellness/WellnessScreen.js</code></td><td>Full wellness dashboard with score, trends, insights</td><td>Dev 4</td></tr>
+    <tr><td><code>src/screens/wellness/SleepLogScreen.js</code></td><td>Detailed sleep entry screen</td><td>Dev 4</td></tr>
     <tr><td><code>views/wellness.ejs</code></td><td>Wellness analytics dashboard (coach/admin view)</td><td>Dev 5</td></tr>
   </table>
 
@@ -1145,7 +1145,7 @@
       <div class="ac-item"><span class="ac-keyword">And</span> the screen follows dark theme: bg <code>#0a0e1a</code>, cards <code>#111827</code>, accent <code>#06b6d4</code></div>
     </div>
     <div class="tech-note">
-      <strong>New file:</strong> src/screens/NutritionScreen.js<br>
+      <strong>New file:</strong> src/screens/wellness/NutritionScreen.js<br>
       <strong>Navigation:</strong> Add as a stack screen accessible from HomeScreen content grid tile "Nutrition"<br>
       <strong>Pattern:</strong> Follow HomeScreen.js pattern for API calls, loading states, error handling<br>
       <strong>Colors:</strong> Import from src/styles/colors.js. Accent: #06b6d4. No random multi-colour.
@@ -1172,7 +1172,7 @@
       <div class="ac-item"><span class="ac-keyword">And</span> recently logged foods appear at the top of the search results before I type anything (last 10 foods from local storage)</div>
     </div>
     <div class="tech-note">
-      <strong>New file:</strong> src/screens/MealLogScreen.js<br>
+      <strong>New file:</strong> src/screens/wellness/MealLogScreen.js<br>
       <strong>Props:</strong> Receives <code>slot</code> (breakfast/lunch/dinner/snacks) and <code>date</code> from NutritionScreen<br>
       <strong>Local caching:</strong> Store recent foods in AsyncStorage under key <code>recent_foods</code>. Max 20 items, FIFO.<br>
       <strong>Debounce:</strong> 300ms on search input — don't fire API on every keystroke.
@@ -1270,7 +1270,7 @@
       <div class="ac-item"><span class="ac-keyword">And</span> data loads from <code>GET /athlete/{id}/wellness/score</code></div>
     </div>
     <div class="tech-note">
-      <strong>New file:</strong> src/screens/WellnessScreen.js<br>
+      <strong>New file:</strong> src/screens/wellness/WellnessScreen.js<br>
       <strong>Navigation:</strong> Add as a stack screen from HomeScreen tile "Wellness" (replace or augment the daily tracker tile)<br>
       <strong>Colors:</strong> Use the same accent color #06b6d4. Green: #10b981, Yellow: #f59e0b, Red: #ef4444 — all from colors.js.
     </div>
@@ -1512,7 +1512,7 @@
     </div>
     <div class="ac-block">
       <div class="ac-title">Acceptance Criteria</div>
-      <div class="ac-item"><span class="ac-keyword">Given</span> I run <code>python seed_foods.py</code></div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I run <code>python seeds/seed_foods.py</code></div>
       <div class="ac-item"><span class="ac-keyword">Then</span> <code>db/foods.json</code> is created with 200+ food entries</div>
       <div class="ac-item"><span class="ac-keyword">And</span> distribution: 120+ Indian foods across breakfast/lunch/dinner/snack, 40+ protein sources, 20+ fruits, 20+ beverages</div>
       <div class="ac-item"><span class="ac-keyword">And</span> every entry has realistic nutritional values per 100g (cross-referenced with IFCT 2017)</div>
@@ -1520,7 +1520,7 @@
       <div class="ac-item"><span class="ac-keyword">And</span> foods include common athlete-specific items: whey protein, protein bar, banana, peanut butter, oats, eggs, chicken breast, paneer, soya chunks, sprouts, sattu, ragi malt</div>
     </div>
     <div class="tech-note">
-      <strong>New file:</strong> personal-health-backend/seed_foods.py<br>
+      <strong>New file:</strong> personal-health-backend/seeds/seed_foods.py<br>
       <strong>Pattern:</strong> Follow seed_athletes.py structure. Write to db/foods.json using json.dump with indent=2.
     </div>
     <div class="peer-review"><strong>Raj's Review Checklist:</strong> Spot-check 10 foods against IFCT/Google nutrition data. Verify no duplicate food_ids. Verify all categories are represented. Run twice → same output.</div>
@@ -1535,7 +1535,7 @@
     </div>
     <div class="ac-block">
       <div class="ac-title">Acceptance Criteria</div>
-      <div class="ac-item"><span class="ac-keyword">Given</span> I run <code>python seed_nutrition.py</code> (after seed_foods.py and seed_athletes.py)</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I run <code>python seeds/seed_nutrition.py</code> (after seed_foods.py and seed_athletes.py)</div>
       <div class="ac-item"><span class="ac-keyword">Then</span> <code>db/nutrition.json</code> is created with meal logs for all 30 athletes</div>
       <div class="ac-item"><span class="ac-keyword">And</span> each athlete has 60–80 days of logs out of 90 (realistic: athletes don't log every day)</div>
       <div class="ac-item"><span class="ac-keyword">And</span> each logged day has 2–4 meal slots filled with 1–3 food items each</div>
@@ -1556,7 +1556,7 @@
     </div>
     <div class="ac-block">
       <div class="ac-title">Acceptance Criteria</div>
-      <div class="ac-item"><span class="ac-keyword">Given</span> I run <code>python seed_wellness.py</code> (after seed_athletes.py)</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I run <code>python seeds/seed_wellness.py</code> (after seed_athletes.py)</div>
       <div class="ac-item"><span class="ac-keyword">Then</span> <code>db/wellness.json</code> is created with wellness entries for all 30 athletes</div>
       <div class="ac-item"><span class="ac-keyword">And</span> each athlete has 70–85 days of logs out of 90</div>
       <div class="ac-item"><span class="ac-keyword">And</span> sleep duration ranges 5–9 hrs with a mean of 7; quality 1–5</div>
@@ -1751,203 +1751,6 @@
       <tr><td>M3: First Retrain</td><td>500+ real sessions, model beats synthetic</td><td style="color: var(--text-muted);">Blocked (need real data)</td></tr>
       <tr><td>M4: First Coaching Note</td><td>LLM + session + wellness summary</td><td style="color: var(--text-muted);">Planned (post-wellness)</td></tr>
       <tr><td>M5: First Revenue</td><td>₹199/mo subscription live</td><td style="color: var(--text-muted);">Planned</td></tr>
-    </table>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-  <h3>Product &amp; Analytics Tasks — PM Team Assignments</h3>
-  <p>These are <strong>not dev stories</strong>. These are PM-side deliverables that run in parallel with engineering. Adhik owns the sprint; PM tasks are shared across the product team.</p>
-
-  <!-- PM-01 -->
-  <div class="story-card" style="border-left-color: var(--purple);">
-    <div class="story-id">PM-01 &nbsp; <span class="tag tag-pm">Product</span> <span class="tag tag-priority-high">P0</span></div>
-    <div class="story-title">User Interview Script — Wellness Discovery (5 Athletes)</div>
-    <div class="story-statement">
-      Before this sprint ships, we need to validate our JTBD assumptions with real athletes. Prepare and conduct 5 discovery interviews focused on wellness &amp; nutrition habits.
-    </div>
-    <div class="ac-block">
-      <div class="ac-title">Deliverables &amp; Criteria</div>
-      <div class="ac-item"><span class="ac-keyword">Deliver</span> a 10-question interview script covering: current nutrition tracking (or lack thereof), sleep habits, what "recovery" means to them, and what they'd want from a wellness feature</div>
-      <div class="ac-item"><span class="ac-keyword">Conduct</span> 5 interviews: at least 2 Block/District athletes, 1 State+ athlete, 1 coach, 1 parent</div>
-      <div class="ac-item"><span class="ac-keyword">Document</span> raw notes + synthesized JTBD findings: were our assumptions in Section 3 correct? What did we miss?</div>
-      <div class="ac-item"><span class="ac-keyword">Output</span> a 1-page summary: top 3 validated jobs, top 3 surprises, and any feature adjustments needed before sprint ships</div>
-      <div class="ac-item"><span class="ac-keyword">Deadline</span> Interview script ready by <strong>Tue 8 Apr</strong>. All 5 interviews completed by <strong>Fri 11 Apr</strong>. Summary shared by <strong>Sat 12 Apr</strong>.</div>
-    </div>
-  </div>
-
-  <!-- PM-02 -->
-  <div class="story-card" style="border-left-color: var(--purple);">
-    <div class="story-id">PM-02 &nbsp; <span class="tag tag-pm">Product</span> <span class="tag tag-priority-high">P0</span></div>
-    <div class="story-title">Indian Food Database Validation — Nutritional Accuracy Audit</div>
-    <div class="story-statement">
-      The food database (WN-01, WN-31) is the foundation of the nutrition module. If calorie values are wrong, athletes make bad decisions. PM must validate the data before it ships.
-    </div>
-    <div class="ac-block">
-      <div class="ac-title">Deliverables &amp; Criteria</div>
-      <div class="ac-item"><span class="ac-keyword">Audit</span> 50 foods from <code>db/foods.json</code> against IFCT 2017 (Indian Food Composition Tables) and NIN Hyderabad data</div>
-      <div class="ac-item"><span class="ac-keyword">Flag</span> any food with calorie deviation > 15% from reference source</div>
-      <div class="ac-item"><span class="ac-keyword">Verify</span> serving sizes are realistic: a "plate of rice" should be 200–300g, not 100g</div>
-      <div class="ac-item"><span class="ac-keyword">Add</span> 10 missing foods that athletes mentioned in interviews (PM-01) that aren't in the DB</div>
-      <div class="ac-item"><span class="ac-keyword">Deadline</span> Audit complete by <strong>Thu 10 Apr</strong> (after Dev 6 delivers seed script).</div>
-    </div>
-  </div>
-
-  <!-- PM-03 -->
-  <div class="story-card" style="border-left-color: var(--purple);">
-    <div class="story-id">PM-03 &nbsp; <span class="tag tag-pm">Product</span> <span class="tag tag-analytics">Analytics</span> <span class="tag tag-priority-high">P0</span></div>
-    <div class="story-title">Analytics Tracking Plan — Define Events Before Dev Ships</div>
-    <div class="story-statement">
-      We can't measure success metrics (Section 14) without defining exactly which events to track, where, and in what format. This must be ready before Android PRs merge.
-    </div>
-    <div class="ac-block">
-      <div class="ac-title">Deliverables &amp; Criteria</div>
-      <div class="ac-item"><span class="ac-keyword">Create</span> a tracking plan spreadsheet with columns: Event Name, Trigger, Properties, Screen, Priority (P0/P1/P2)</div>
-      <div class="ac-item"><span class="ac-keyword">Map</span> every success metric from Section 14 to specific events that measure it</div>
-      <div class="ac-item"><span class="ac-keyword">Define</span> the <code>[ANALYTICS]</code> console.log format so all devs log events consistently: <code>[ANALYTICS] event_name {prop1: val1, prop2: val2, timestamp: ISO}</code></div>
-      <div class="ac-item"><span class="ac-keyword">Review</span> with Dev 3 and Dev 4 (Android devs) to ensure events are technically feasible at the points specified</div>
-      <div class="ac-item"><span class="ac-keyword">Identify</span> which 3 events are must-have for Week 1 launch (meal_logged, wellness_logged, wellness_score_viewed) vs. nice-to-have for later</div>
-      <div class="ac-item"><span class="ac-keyword">Deadline</span> Tracking plan shared with devs by <strong>Wed 9 Apr</strong>.</div>
-    </div>
-  </div>
-
-  <!-- PM-04 -->
-  <div class="story-card" style="border-left-color: var(--purple);">
-    <div class="story-id">PM-04 &nbsp; <span class="tag tag-pm">Product</span> <span class="tag tag-priority-high">P0</span></div>
-    <div class="story-title">Wellness Score Formula Calibration — Review &amp; Sign-Off</div>
-    <div class="story-statement">
-      The wellness score (WN-08) drives the recovery recommendation athletes see every morning. If the weights are wrong, athletes either overtrain or skip sessions unnecessarily. PM must validate the formula before it goes live.
-    </div>
-    <div class="ac-block">
-      <div class="ac-title">Deliverables &amp; Criteria</div>
-      <div class="ac-item"><span class="ac-keyword">Review</span> the composite wellness score formula from WN-08 (sleep 30%, hydration 15%, mood 15%, energy 15%, stress 10%, soreness 15%)</div>
-      <div class="ac-item"><span class="ac-keyword">Simulate</span> 10 athlete scenarios manually (e.g., "slept 5 hrs, drank 3L, mood 8, stress 3") and verify the score + recovery status feel intuitively correct</div>
-      <div class="ac-item"><span class="ac-keyword">Validate</span> with 1 coach: "If you saw this athlete at score 55 with these breakdowns, would you let them do a hard session?"</div>
-      <div class="ac-item"><span class="ac-keyword">Document</span> any weight adjustments and rationale. If sleep should be 35% instead of 30%, say why.</div>
-      <div class="ac-item"><span class="ac-keyword">Sign off</span> on the formula so Dev 2 can freeze it by <strong>Wed 9 Apr</strong></div>
-    </div>
-  </div>
-
-  <!-- PM-05 -->
-  <div class="story-card" style="border-left-color: var(--purple);">
-    <div class="story-id">PM-05 &nbsp; <span class="tag tag-pm">Product</span> <span class="tag tag-priority-med">P1</span></div>
-    <div class="story-title">Competitive Analysis — HealthifyMe, MyFitnessPal, Cult.fit</div>
-    <div class="story-statement">
-      We say we're better than HealthifyMe and MFP for Indian athletes. PM needs to verify that claim with a structured comparison so we know our actual differentiators and gaps.
-    </div>
-    <div class="ac-block">
-      <div class="ac-title">Deliverables &amp; Criteria</div>
-      <div class="ac-item"><span class="ac-keyword">Download</span> and test HealthifyMe, MyFitnessPal, and Cult.fit on a real phone</div>
-      <div class="ac-item"><span class="ac-keyword">Log</span> the same 3 meals (poha, dal rice, paneer tikka) on all 3 apps + our app. Record: time to log, search accuracy, calorie values returned</div>
-      <div class="ac-item"><span class="ac-keyword">Compare</span> across 6 dimensions: Indian food coverage, time-to-log, wellness features, sports-specific features, price, data export</div>
-      <div class="ac-item"><span class="ac-keyword">Create</span> a comparison table that can be used in pitch deck and positioning</div>
-      <div class="ac-item"><span class="ac-keyword">Identify</span> 3 features competitors have that we don't — and whether we should care or not (with rationale)</div>
-      <div class="ac-item"><span class="ac-keyword">Deadline</span> Comparison doc ready by <strong>Fri 11 Apr</strong>.</div>
-    </div>
-  </div>
-
-  <!-- PM-06 -->
-  <div class="story-card" style="border-left-color: var(--purple);">
-    <div class="story-id">PM-06 &nbsp; <span class="tag tag-pm">Product</span> <span class="tag tag-analytics">Analytics</span> <span class="tag tag-priority-med">P1</span></div>
-    <div class="story-title">Wellness Module KPI Dashboard — Build the Measurement Layer</div>
-    <div class="story-statement">
-      After the sprint ships, we need a way to track the 6 success metrics from Section 14 without manually querying JSON files. Set up the measurement infrastructure.
-    </div>
-    <div class="ac-block">
-      <div class="ac-title">Deliverables &amp; Criteria</div>
-      <div class="ac-item"><span class="ac-keyword">Design</span> a simple KPI dashboard layout (can be a Google Sheet, Notion page, or additional frontend page) that shows all 6 success metrics updated daily</div>
-      <div class="ac-item"><span class="ac-keyword">Write</span> a Python script <code>compute_kpis.py</code> that reads db/wellness.json, db/nutrition.json, db/sessions.json and outputs current values for all 6 metrics</div>
-      <div class="ac-item"><span class="ac-keyword">Define</span> the weekly review cadence: who looks at these numbers, when, and what actions trigger at what thresholds</div>
-      <div class="ac-item"><span class="ac-keyword">Deadline</span> KPI script working by <strong>Sat 12 Apr</strong>. Dashboard format agreed by <strong>Sun 13 Apr</strong>.</div>
-    </div>
-  </div>
-
-  <!-- PM-07 -->
-  <div class="story-card" style="border-left-color: var(--purple);">
-    <div class="story-id">PM-07 &nbsp; <span class="tag tag-pm">Product</span> <span class="tag tag-priority-med">P1</span></div>
-    <div class="story-title">UX Copy &amp; Microcopy — All User-Facing Strings</div>
-    <div class="story-statement">
-      Developers shouldn't write user-facing copy. PM must provide all strings, empty state messages, error messages, tooltips, and CTA labels before Android screens are built.
-    </div>
-    <div class="ac-block">
-      <div class="ac-title">Deliverables &amp; Criteria</div>
-      <div class="ac-item"><span class="ac-keyword">Create</span> a copy sheet covering every new screen: NutritionScreen, MealLogScreen, WellnessScreen, SleepLogScreen, HomeScreen wellness widget</div>
-      <div class="ac-item"><span class="ac-keyword">Include</span> for each screen: header title, section labels, button labels, empty state text, error state text, placeholder text, tooltip/help text</div>
-      <div class="ac-item"><span class="ac-keyword">Write</span> recovery status messages: "Ready to Train" / "Train with Caution" / "Rest Day Recommended" — and the recommendation strings from WN-10</div>
-      <div class="ac-item"><span class="ac-keyword">Tone:</span> Encouraging, not clinical. "You're at 74% today — solid!" not "Wellness score: 74/100."</div>
-      <div class="ac-item"><span class="ac-keyword">Review</span> with Dev 3 and Dev 4 to ensure copy fits the UI layout without truncation</div>
-      <div class="ac-item"><span class="ac-keyword">Deadline</span> First draft by <strong>Tue 8 Apr</strong>. Final copy locked by <strong>Thu 10 Apr</strong>.</div>
-    </div>
-  </div>
-
-  <!-- PM-08 -->
-  <div class="story-card" style="border-left-color: var(--purple);">
-    <div class="story-id">PM-08 &nbsp; <span class="tag tag-pm">Product</span> <span class="tag tag-priority-med">P1</span></div>
-    <div class="story-title">Default Nutrition Goals Research — Sport-Specific Calorie Targets</div>
-    <div class="story-statement">
-      WN-06 returns default nutrition goals by sport when athletes haven't set their own. PM must ensure these defaults are evidence-based — not made up.
-    </div>
-    <div class="ac-block">
-      <div class="ac-title">Deliverables &amp; Criteria</div>
-      <div class="ac-item"><span class="ac-keyword">Research</span> recommended daily calorie and macro intake for each sport type in our app: vertical_jump, sprint, javelin, squat, push_up, pull_up, cricket_bat, snatch</div>
-      <div class="ac-item"><span class="ac-keyword">Source</span> from NIN Hyderabad RDA, ACSM guidelines, or published sports nutrition studies</div>
-      <div class="ac-item"><span class="ac-keyword">Account for</span> Indian dietary patterns: higher carb %, moderate protein, vegetarian-friendly targets</div>
-      <div class="ac-item"><span class="ac-keyword">Deliver</span> a table: Sport → Daily Calories → Protein (g) → Carbs (g) → Fat (g) → Fiber (g) → Source citation</div>
-      <div class="ac-item"><span class="ac-keyword">Validate</span> with 1 sports nutritionist or coach if accessible</div>
-      <div class="ac-item"><span class="ac-keyword">Deadline</span> Table delivered to Dev 1 by <strong>Tue 8 Apr</strong> (before WN-06 is implemented).</div>
-    </div>
-  </div>
-
-  <!-- PM-09 -->
-  <div class="story-card" style="border-left-color: var(--purple);">
-    <div class="story-id">PM-09 &nbsp; <span class="tag tag-pm">Product</span> <span class="tag tag-analytics">Analytics</span> <span class="tag tag-priority-med">P1</span></div>
-    <div class="story-title">A/B Test Plan — Wellness Score Position on HomeScreen</div>
-    <div class="story-statement">
-      WN-24 adds a wellness widget to HomeScreen. We don't know if athletes will engage with it above the daily tracker vs. below the fitness score. PM must define the A/B test so we can measure after launch.
-    </div>
-    <div class="ac-block">
-      <div class="ac-title">Deliverables &amp; Criteria</div>
-      <div class="ac-item"><span class="ac-keyword">Define</span> Variant A: wellness widget above daily tracker. Variant B: wellness widget below fitness score card (current plan)</div>
-      <div class="ac-item"><span class="ac-keyword">Define</span> success metric: "wellness_score_viewed" event rate within 10 seconds of HomeScreen mount</div>
-      <div class="ac-item"><span class="ac-keyword">Define</span> sample size and duration needed to reach statistical significance (minimum 50 athletes, 7 days)</div>
-      <div class="ac-item"><span class="ac-keyword">Document</span> the test plan so Dev 4 can implement the variant flag when ready (not this sprint, but plan now)</div>
-      <div class="ac-item"><span class="ac-keyword">Deadline</span> Test plan documented by <strong>Sun 13 Apr</strong>.</div>
-    </div>
-  </div>
-
-  <!-- PM-10 -->
-  <div class="story-card" style="border-left-color: var(--purple);">
-    <div class="story-id">PM-10 &nbsp; <span class="tag tag-pm">Product</span> <span class="tag tag-priority-high">P0</span></div>
-    <div class="story-title">Sprint Demo Prep — Stakeholder Walkthrough</div>
-    <div class="story-statement">
-      At the end of the sprint, we demo the wellness module to stakeholders. PM must prepare the demo script, test data, and narrative.
-    </div>
-    <div class="ac-block">
-      <div class="ac-title">Deliverables &amp; Criteria</div>
-      <div class="ac-item"><span class="ac-keyword">Write</span> a 10-minute demo script that walks through: (1) athlete morning check-in, (2) meal logging, (3) wellness score + recovery recommendation, (4) coach dashboard view, (5) correlation insight</div>
-      <div class="ac-item"><span class="ac-keyword">Prepare</span> a demo athlete profile with 30+ days of seeded wellness + nutrition data that tells a compelling story (improving trend → one bad week → recovery)</div>
-      <div class="ac-item"><span class="ac-keyword">Test</span> the full demo flow end-to-end on a real phone + browser 24 hours before the demo</div>
-      <div class="ac-item"><span class="ac-keyword">Prepare</span> 3 talking points on "what we learned from user interviews (PM-01)" to share during demo</div>
-      <div class="ac-item"><span class="ac-keyword">Deadline</span> Demo script ready by <strong>Sat 12 Apr</strong>. Dry run by <strong>Sun 13 Apr morning</strong>.</div>
-    </div>
-  </div>
-
-  <!-- PM Summary -->
-  <div class="card" style="margin-top: 24px; border-left: 4px solid var(--purple);">
-    <h4 style="color: var(--purple); margin-bottom: 10px;">PM Task Summary</h4>
-    <table>
-      <tr><th>ID</th><th>Task</th><th>Priority</th><th>Deadline</th></tr>
-      <tr><td>PM-01</td><td>User Interview Script &amp; Execution (5 athletes)</td><td>P0</td><td>Script Tue 8 · Interviews Fri 11 · Summary Sat 12</td></tr>
-      <tr><td>PM-02</td><td>Food Database Nutritional Accuracy Audit</td><td>P0</td><td>Thu 10 Apr</td></tr>
-      <tr><td>PM-03</td><td>Analytics Tracking Plan</td><td>P0</td><td>Wed 9 Apr</td></tr>
-      <tr><td>PM-04</td><td>Wellness Score Formula Calibration &amp; Sign-Off</td><td>P0</td><td>Wed 9 Apr</td></tr>
-      <tr><td>PM-05</td><td>Competitive Analysis (HealthifyMe, MFP, Cult.fit)</td><td>P1</td><td>Fri 11 Apr</td></tr>
-      <tr><td>PM-06</td><td>KPI Dashboard &amp; Measurement Script</td><td>P1</td><td>Sat 12 Apr</td></tr>
-      <tr><td>PM-07</td><td>UX Copy &amp; Microcopy for All Screens</td><td>P1</td><td>Draft Tue 8 · Final Thu 10</td></tr>
-      <tr><td>PM-08</td><td>Default Nutrition Goals Research (Sport-Specific)</td><td>P1</td><td>Tue 8 Apr</td></tr>
-      <tr><td>PM-09</td><td>A/B Test Plan — Wellness Widget Placement</td><td>P1</td><td>Sun 13 Apr</td></tr>
-      <tr><td>PM-10</td><td>Sprint Demo Prep &amp; Stakeholder Walkthrough</td><td>P0</td><td>Script Sat 12 · Dry run Sun 13</td></tr>
     </table>
   </div>
 </div>
@@ -2165,23 +1968,12 @@
     <tr><td>WN-32</td><td>Seed Nutrition Logs — 90 Days</td><td>6</td><td>3</td><td>E6</td><td>P0</td></tr>
     <tr><td>WN-33</td><td>Seed Wellness History — 90 Days</td><td>6</td><td>3</td><td>E6</td><td>P0</td></tr>
     <tr><td>WN-34</td><td>End-to-End Integration Testing</td><td>6</td><td>5</td><td>E6</td><td>P0</td></tr>
-    <tr><td colspan="6" style="background: rgba(139,92,246,0.1); font-weight: 700; color: #a78bfa;">Product &amp; Analytics Tasks (PM Team)</td></tr>
-    <tr><td>PM-01</td><td>User Interview Script &amp; Execution</td><td>PM</td><td>—</td><td>—</td><td>P0</td></tr>
-    <tr><td>PM-02</td><td>Food Database Nutritional Accuracy Audit</td><td>PM</td><td>—</td><td>—</td><td>P0</td></tr>
-    <tr><td>PM-03</td><td>Analytics Tracking Plan</td><td>PM</td><td>—</td><td>—</td><td>P0</td></tr>
-    <tr><td>PM-04</td><td>Wellness Score Formula Calibration</td><td>PM</td><td>—</td><td>—</td><td>P0</td></tr>
-    <tr><td>PM-05</td><td>Competitive Analysis</td><td>PM</td><td>—</td><td>—</td><td>P1</td></tr>
-    <tr><td>PM-06</td><td>KPI Dashboard &amp; Measurement Script</td><td>PM</td><td>—</td><td>—</td><td>P1</td></tr>
-    <tr><td>PM-07</td><td>UX Copy &amp; Microcopy for All Screens</td><td>PM</td><td>—</td><td>—</td><td>P1</td></tr>
-    <tr><td>PM-08</td><td>Default Nutrition Goals Research</td><td>PM</td><td>—</td><td>—</td><td>P1</td></tr>
-    <tr><td>PM-09</td><td>A/B Test Plan — Wellness Widget Placement</td><td>PM</td><td>—</td><td>—</td><td>P1</td></tr>
-    <tr><td>PM-10</td><td>Sprint Demo Prep &amp; Stakeholder Walkthrough</td><td>PM</td><td>—</td><td>—</td><td>P0</td></tr>
   </table>
 
   <div class="metric-row" style="margin-top: 24px;">
-    <div class="metric-pill"><div class="num">34</div><div class="label">Dev Stories</div></div>
-    <div class="metric-pill"><div class="num">10</div><div class="label">PM Tasks</div></div>
-    <div class="metric-pill"><div class="num">97</div><div class="label">Dev Story Points</div></div>
+    <div class="metric-pill"><div class="num">34</div><div class="label">Total Stories</div></div>
+    <div class="metric-pill"><div class="num">97</div><div class="label">Total Story Points</div></div>
+    <div class="metric-pill"><div class="num">~16</div><div class="label">SP per Developer</div></div>
     <div class="metric-pill"><div class="num">8</div><div class="label">Brownie Features</div></div>
     <div class="metric-pill"><div class="num">6</div><div class="label">Success Metrics</div></div>
   </div>
@@ -2201,4 +1993,3 @@
 </div>
 </body>
 </html>
-
